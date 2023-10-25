@@ -1,0 +1,14 @@
+type PurchaseTable
+  @model
+  @auth(rules: [{ allow: public, operations: [create,read,update,delete] }, { allow: owner }]) {
+  id: ID
+  PK: String! @primaryKey(sortKeyFields: ["SK"])
+  SK: String!
+  type: String!
+  imagefile: String
+  price: Int
+  username: String
+  description: String
+  isInCart: Int
+  isPurchased: Int
+}
