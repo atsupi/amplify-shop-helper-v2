@@ -1,45 +1,73 @@
 import { useEffect, useState } from "react";
 import "./DetailList.css";
-import { ItemWithCheck, Purchase } from "../types";
-import { fetchItem, fetchPurchases, mutatePurchase } from "../Utils";
+import { PurchaseData, UpdatePurchaseItemValue } from "../types";
+import {
+  fetchItem,
+  fetchItemReturnValue,
+  listItems,
+  listItemsReturnValue,
+  listPurchaseItems,
+  listPurchaseItemsReturnValue,
+  mutatePurchase,
+} from "../Utils";
 import DetailItem from "./DetailItem";
 
 type Props = {
-  pindex: number
-}
+  pindex: number;
+};
 
 function DetailList(props: Props) {
-  const [items, setItems] = useState(Array<ItemWithCheck>);
-  const [targetPurchase, setTargetPurchase] = useState<Purchase>();
+  const [items, setItems] = useState(Array<PurchaseData>);
+  const [purchaseItems, setPurchaseItems] = useState(Array<PurchaseData>);
 
   useEffect(() => {
-    //    let targetPurchase: Purchase;
-    let purchases: Array<Purchase> = [];
-    fetchPurchases().then((res: {data: { listPurchases: { items: Purchase[]; }}}) => {
-      purchases = res.data.listPurchases.items;
-      setTargetPurchase(purchases[props.pindex - 1]);
-      let newItems: Array<ItemWithCheck> = [];
+    let purchases: Array<PurchaseData> = [];
+    listItems("purchase").then((res: listItemsReturnValue) => {
+      purchases = res.data.purchaseTableByType.items;
+      let newItems: Array<PurchaseData> = [];
       let index = 0;
-      purchases[props.pindex - 1].itemID.map((item) => {
-        fetchItem(item).then((data: {data: {getItem: ItemWithCheck}}) => {
-          const newItem: ItemWithCheck = data.data.getItem;
-          newItem.isPurchased = purchases[props.pindex - 1].isPurchased[index];
-          newItem.index = index;
-          newItems = [...newItems, newItem];
-          setItems(newItems);
-          index = index + 1;
-        });
-      });
+      const purchaseId = purchases[props.pindex - 1].PK || "";
+      listPurchaseItems(purchaseId)
+        .then((res: listPurchaseItemsReturnValue) => {
+          res.data.listPurchaseTables.items.map((item) => {
+            if (item.type === "pitem") {
+              const itemSK: string = item.SK;
+              const itemId = itemSK.split("#")[1];
+              fetchItem("item#" + itemId, "#meta#" + itemId).then(
+                (res: fetchItemReturnValue) => {
+                  const newItem: PurchaseData = res.data.getPurchaseTable;
+                  newItem.isPurchased = item.isPurchased;
+                  newItem.index = index;
+                  newItems = [...newItems, newItem];
+                  setItems(newItems);
+                  index = index + 1;
+                }
+              );
+              setPurchaseItems((prevItems) => {
+                const newItems = [...prevItems, item];
+                return newItems;
+              });
+            }
+          });
+        })
+        .catch((err) => console.log(err));
     });
   }, []);
 
   const onChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     const arialabel: string | null = event?.target.ariaLabel;
-    const index = parseInt(arialabel? arialabel: "1");
-    if (targetPurchase) {
-      targetPurchase.isPurchased[index] = items[index].isPurchased;
-      mutatePurchase(targetPurchase);
-    }
+    const index = parseInt(arialabel ? arialabel : "1");
+    purchaseItems[index].isPurchased = 1 - purchaseItems[index].isPurchased;
+    console.log("onChangeCheckbox", purchaseItems[index]);
+    const targetPurchase: UpdatePurchaseItemValue = {
+      PK: purchaseItems[index].PK || "",
+      SK: purchaseItems[index].SK,
+      type: purchaseItems[index].type,
+      price: purchaseItems[index].price,
+      username: purchaseItems[index].username,
+      isPurchased: purchaseItems[index].isPurchased,
+    };
+    mutatePurchase(targetPurchase);
   };
 
   return (

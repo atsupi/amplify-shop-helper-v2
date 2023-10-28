@@ -2,10 +2,10 @@ import React, { RefCallback, useEffect, useState } from "react";
 import "./DetailItem.css";
 import { getPresignedUrl } from "../Utils";
 import { Checkbox } from "@mui/material";
-import { ItemWithCheck } from "../types";
+import { PurchaseData } from "../types";
 
 type Props = {
-  item: ItemWithCheck,
+  item: PurchaseData,
   onChange: RefCallback<React.ChangeEvent<HTMLInputElement>>;
 }
 

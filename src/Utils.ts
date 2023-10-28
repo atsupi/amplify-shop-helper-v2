@@ -4,7 +4,7 @@ import { listPurchaseTables,
          purchaseTableByType, 
          purchaseTableByIsInCart } from "./graphql/queries";
 import { updatePurchaseTable } from "./graphql/mutations";
-import { PurchaseData, UpdateItemValue } from "./types";
+import { PurchaseData, UpdateItemValue, UpdatePurchaseItemValue } from "./types";
 
 export async function getPresignedUrl(key: any) {
   const presignedUrl = await Storage.get(key, { level: "public" });
@@ -23,7 +23,7 @@ export const getList = async (nextToken = null): Promise<getListReturnValue> => 
   return res;
 };
 
-type fetchItemReturnValue = {
+export type fetchItemReturnValue = {
   data: { getPurchaseTable: PurchaseData }
 }
 
@@ -47,6 +47,19 @@ export const listItems = async (type: string): Promise<listItemsReturnValue> => 
   return res;
 };
 
+export type listPurchaseItemsReturnValue = {
+  data: { listPurchaseTables: { items: Array<PurchaseData> } }
+}
+
+export const listPurchaseItems = async (PK: string): Promise<listPurchaseItemsReturnValue> => {
+  const res: Promise<listPurchaseItemsReturnValue> = 
+    <Promise<listPurchaseItemsReturnValue>>await API.graphql(
+      graphqlOperation(listPurchaseTables, { PK: PK }
+    )
+  );
+  return res;
+}
+
 export type listItemsInCartReturnValue = {
   data: { purchaseTableByIsInCart: { items: Array<PurchaseData> } }
 }
@@ -58,7 +71,6 @@ export const listItemsInCart = async (): Promise<listItemsInCartReturnValue> => 
     );
   return res;
 };
-
 
 export async function updateItemStatus(item: UpdateItemValue) {
   try {
@@ -79,10 +91,11 @@ export const fetchPurchases = async (): Promise<getListReturnValue> => {
   return res;
 };
 
-export const mutatePurchase = async (targetPurchase: PurchaseData) => {
+export const mutatePurchase = async (targetPurchase: UpdatePurchaseItemValue) => {
   const res = await API.graphql(
     graphqlOperation(updatePurchaseTable, {
-      id: targetPurchase.id,
+      PK: targetPurchase.PK,
+      SK: targetPurchase.SK,
       input: targetPurchase,
     })
   );

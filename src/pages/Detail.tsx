@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./Detail.css";
 import DetailList from "../components/DetailList";
 import { useEffect, useState } from "react";

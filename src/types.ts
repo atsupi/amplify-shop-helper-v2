@@ -10,6 +10,7 @@ export interface PurchaseData {
     isInCart: number | any;
     isPurchased: number | any;
     index: number | any;
+    check: number | any;
 }
 
 export interface NewItemValue {
@@ -32,4 +33,13 @@ export interface UpdateItemValue {
     username: string;
     description: string;
     isInCart: number;
+}
+
+export interface UpdatePurchaseItemValue {
+    PK: string;
+    SK: string;
+    type: string;
+    price: number;
+    username: string;
+    isPurchased: number;
 }

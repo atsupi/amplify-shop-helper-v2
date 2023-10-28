@@ -1,47 +1,57 @@
 import { useEffect, useState } from "react";
 import "./PurchaseItem.css";
-import { fetchItem, getPresignedUrl } from "../Utils";
+import {
+  fetchItem,
+  fetchItemReturnValue,
+  getPresignedUrl,
+  listPurchaseItems,
+  listPurchaseItemsReturnValue,
+} from "../Utils";
 import { PurchaseData } from "../types";
 
 type Props = {
-  data: PurchaseData
-}
+  data: PurchaseData;
+};
 
-function PurchaseItem( props: Props ) {
+function PurchaseItem(props: Props) {
   const [imagefile, setImageFile] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
   const [completed, setCompleted] = useState(0);
-  const purchaseData: PurchaseData = props.data;
-  const [firstItem, setFirstItem] = useState(""/*purchaseData?.SK*/);
+  const [numberOfItems, setNumberOfItems] = useState(0);
+  const purchaseIndex: PurchaseData = props.data;
 
   useEffect(() => {
     let temp_completed = 1;
-    fetchItem(firstItem).then((res) => {
-      setFirstItem(res.data.getItem.id);
-      getPresignedUrl(res.data.getItem.imagefile).then((image) => {
-        setImageFile(image);
-      });
-    });
-    purchaseData.itemID.map((itemID) => {
-      fetchItem(itemID).then((res) => {
-        setTotalPrice(
-          (totalPrice) => totalPrice + res.data.getItem.price
-        );
-      });
-    });
-    purchaseData.isPurchased.map((isPurchased) => {
-      if (isPurchased === 0) {
-        temp_completed = 0;
+    listPurchaseItems(purchaseIndex.PK || "").then(
+      (res: listPurchaseItemsReturnValue) => {
+        const itemId = res.data.listPurchaseTables.items[1].SK?.split("#")[1];
+        fetchItem("item#" + itemId, "#meta#" + itemId)
+          .then((res) => {
+            getPresignedUrl(
+              res.data.getPurchaseTable.imagefile
+            ).then((image) => {
+              setImageFile(image);
+            });
+          })
+          .catch((err) => console.log(err));
+        const items: Array<PurchaseData> = res.data.listPurchaseTables.items;
+        items.map((item) => {
+          setTotalPrice((totalPrice) => totalPrice + item.price);
+          if (item.isPurchased === 0) {
+            temp_completed = 0;
+          }
+        });
+        setCompleted(temp_completed);
+        setNumberOfItems(items.length - 1);
       }
-    });
-    setCompleted(temp_completed);
+    );
   }, []);
 
   return (
     <>
       <div className="PurchaseItem_div">
-        <div>#{purchaseData.id}</div>
-        <p>{purchaseData.numberOfItems} item(s)</p>
+        <div>{purchaseIndex.PK?.split("#")[1]}</div>
+        <p>{numberOfItems} item(s)</p>
         {completed ? (
           <div style={{ color: "white", background: "blue", margin: "15pt" }}>
             COMPLETED

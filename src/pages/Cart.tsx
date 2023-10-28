@@ -71,6 +71,7 @@ function Cart(props: Props) {
         type: "pitem",
         username: props.username,
         isPurchased: 0,
+        price: item.price
       };
       try {
         const res = await API.graphql(

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PurchaseItem from "../components/PurchaseItem";
 import "./PurchaseList.css";
-import { fetchPurchases, getListReturnValue } from "../Utils";
+import { listItems, listItemsReturnValue } from "../Utils";
 import { PurchaseData } from "../types";
 
 function PurchaseList() {
@@ -10,8 +10,8 @@ function PurchaseList() {
   const [purchaseLists, setPurchaseLists] = useState(Array<PurchaseData>);
 
   useEffect(() => {
-    fetchPurchases().then((res: getListReturnValue) => {
-      setPurchaseLists(res.data.listPurchaseTables.items);
+    listItems("purchase").then((res: listItemsReturnValue) => {
+      setPurchaseLists(res.data.purchaseTableByType.items);
     });
   }, []);
 
@@ -24,6 +24,7 @@ function PurchaseList() {
           return (
             <div className={`Item${index}`} key={`detail/${index}`}>
               <Link to={`/detail/${index}`} key={`linkToDetail/${index}`}>
+                {/* PurchaseItem {item.PK} {item.SK} */}
                 <PurchaseItem data={item} />
               </Link>
             </div>
