@@ -59,3 +59,111 @@ export const listPurchaseTables = /* GraphQL */ `
     }
   }
 `;
+export const purchaseTableByType = /* GraphQL */ `
+  query PurchaseTableByType(
+    $type: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelPurchaseTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    purchaseTableByType(
+      type: $type
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        PK
+        SK
+        type
+        imagefile
+        price
+        username
+        description
+        isInCart
+        isPurchased
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const purchaseTableByIsInCart = /* GraphQL */ `
+  query PurchaseTableByIsInCart(
+    $isInCart: Int!
+    $sortDirection: ModelSortDirection
+    $filter: ModelPurchaseTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    purchaseTableByIsInCart(
+      isInCart: $isInCart
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        PK
+        SK
+        type
+        imagefile
+        price
+        username
+        description
+        isInCart
+        isPurchased
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const purchaseTableByIsPurchased = /* GraphQL */ `
+  query PurchaseTableByIsPurchased(
+    $isPurchased: Int!
+    $sortDirection: ModelSortDirection
+    $filter: ModelPurchaseTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    purchaseTableByIsPurchased(
+      isPurchased: $isPurchased
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        PK
+        SK
+        type
+        imagefile
+        price
+        username
+        description
+        isInCart
+        isPurchased
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;

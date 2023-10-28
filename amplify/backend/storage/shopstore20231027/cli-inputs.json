@@ -1,0 +1,14 @@
+{
+  "resourceName": "shopstore20231027",
+  "policyUUID": "5fa1898e",
+  "bucketName": "amplifyshophelperv2caaf9c40b76f4ca6927f197b154a",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

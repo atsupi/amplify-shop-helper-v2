@@ -1,0 +1,45 @@
+
+.ItemsStyle {
+    display: grid;
+    grid-template-columns: 150pt 150pt;  
+    grid-auto-rows: 220pt;
+    column-gap: 10px;
+    row-gap: 18px;
+    margin: 10px;
+    margin-bottom: 40px;
+}
+
+.Item1 {
+    border: solid;
+    border-color: #206040;
+}
+
+.Item2 {
+    border: solid;
+    border-color: #206040;
+}
+
+.Item3 {
+    border: solid;
+    border-color: #206040;
+}
+
+.Item4 {
+    border: solid;
+    border-color: #206040;
+}
+
+.Item5 {
+    border: solid;
+    border-color: #206040;
+}
+
+.Item6 {
+    border: solid;
+    border-color: #206040;
+}
+
+.pagination {
+    list-style: none;
+    justify-content: center;
+}

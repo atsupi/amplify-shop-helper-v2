@@ -1,0 +1,23 @@
+.HomeBarDiv {
+    display: block;
+    width: 60pt;
+    background-color: darkslateblue;
+    padding: 0;
+    margin-right: auto;
+}
+
+.HomeBarDiv ul {
+    list-style-type: none;
+    width: 60pt;
+    padding: 0;
+}
+
+.HomeBarDiv li {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.HomeBarDiv NavLink {
+    float: left;
+    text-align: left;
+}

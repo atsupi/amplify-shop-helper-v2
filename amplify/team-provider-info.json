@@ -17,6 +17,9 @@
       },
       "api": {
         "amplifyshophelperv2": {}
+      },
+      "storage": {
+        "shopstore20231027": {}
       }
     }
   }

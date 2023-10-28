@@ -8,5 +8,8 @@ export default defineConfig({
     alias: {
       './runtimeConfig': './runtimeConfig.browser',
     },
-  }
+  },
+  server: {
+    open: true
+  },
 })

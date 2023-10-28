@@ -1,0 +1,20 @@
+.CartItem_div {
+    border-style: solid;
+    border-color: #206040;
+    padding: 5pt;
+    height: 200pt;
+    position: relative;
+}
+
+.CartItem_price {
+    position: absolute;
+    bottom: 40pt;
+}
+
+.DeleteButton Button {
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: cornflowerblue;
+    position: absolute;
+    bottom: 5pt;
+}

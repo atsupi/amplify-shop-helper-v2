@@ -1,0 +1,14 @@
+.Detail_div {
+    position: relative;
+    border-style: none;
+    justify-content: center;
+    justify-items: center;
+}
+
+.DetailLink {
+    border-style: solid;
+    border-radius: 5pt;
+    width: 150pt;
+    margin: 80pt;
+    background-color: cornflowerblue;
+}

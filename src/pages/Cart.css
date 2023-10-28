@@ -1,0 +1,28 @@
+.Cart_div Button {
+    margin: 5pt;
+}
+
+.CartItemList {
+    display: grid;
+    grid-template-columns: 150pt 150pt;  
+    grid-auto-rows: 300pt;
+    column-gap: 10px;
+    row-gap: 18px;
+    margin: 5px;
+}
+
+.Item1 {
+    height: 200pt;
+}
+
+.Item2 {
+    height: 200pt;
+}
+
+.Item3 {
+    height: 200pt;
+}
+
+.Item4 {
+    height: 200pt;
+}

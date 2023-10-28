@@ -1,0 +1,28 @@
+.ShopItem_div {
+    position: relative;
+    height: 200pt;
+    margin: 2pt;
+}
+
+.NoImage {
+    min-width: 120;
+    min-height: 120;
+    border-radius: 5pt;
+    border-style: dashed;
+    margin: 2pt;
+}
+
+.checkbox {
+    display: flex;
+    justify-content: right;
+}
+
+.ShopItem_description {
+    position: relative;
+}
+
+.ShopItem_price {
+    position: absolute;
+    right: 10pt;
+    bottom: 15pt;
+}

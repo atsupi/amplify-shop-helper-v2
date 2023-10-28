@@ -11,9 +11,15 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.3.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.15",
+    "@mui/styled-engine": "^5.14.15",
     "aws-amplify": "^5.3.11",
+    "bootstrap": "^5.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-paginate": "^8.2.0",
     "react-router-dom": "^6.17.0"
   },
   "devDependencies": {

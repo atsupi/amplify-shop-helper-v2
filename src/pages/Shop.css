@@ -1,0 +1,22 @@
+.Shop_Wrapper {
+    justify-content: center;
+    justify-items: center;
+    position: relative;
+}
+
+.CartButton {
+    border-style: solid;
+    border-color: sienna;
+    border-radius: 5pt;
+    background-color: orange;
+    margin: 5pt;
+    right: 5pt;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+}
+
+.ShopItemList {
+    position: absolute;
+    top: 40pt;
+}

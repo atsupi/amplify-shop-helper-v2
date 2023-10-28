@@ -1,6 +1,40 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
 #root {
-  max-width: 1280px;
+  max-width: 375pt;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+}
+
+.App-header {
+  display: flex;
+  max-width: 375pt;
+  height: 37pt;
+  justify-content: right;
+  align-items: center;
+  background-color:sandybrown;
+  vertical-align: middle;
+}
+
+.App-header h2 {
+  margin: 16px;
+  margin-left: 200pt;
+}
+
+.App-header Button {
+  width: 375pt;
+  height: 27pt;
+  margin: 16px;
+}
+
+.Main {
+  display: flex;
+  width: 375pt;
+  height: 630pt;
+  justify-content: center;
+  background-color: bisque;
+}
+
+.MainContent {
+  width: 315pt;
 }

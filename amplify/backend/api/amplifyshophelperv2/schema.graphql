@@ -4,11 +4,11 @@ type PurchaseTable
   id: ID
   PK: String! @primaryKey(sortKeyFields: ["SK"])
   SK: String!
-  type: String!
+  type: String! @index(name: "byType", queryField: "purchaseTableByType")
   imagefile: String
   price: Int
   username: String
   description: String
-  isInCart: Int
-  isPurchased: Int
+  isInCart: Int @index(name: "byIsInCart", queryField: "purchaseTableByIsInCart")
+  isPurchased: Int @index(name: "byIsPurchased", queryField: "purchaseTableByIsPurchased")
 }
