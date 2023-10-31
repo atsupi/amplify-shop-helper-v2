@@ -58,6 +58,7 @@
       "service": "Cognito"
     }
   },
+  "hosting": {},
   "storage": {
     "shopstore20231027": {
       "dependsOn": [],

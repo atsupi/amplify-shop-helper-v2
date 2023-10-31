@@ -38,6 +38,7 @@ function Cart(props: Props) {
             description: item.description,
             isInCart: item.isInCart,
             isPurchased: 0,
+            check: 0
           },
         ];
         index = index + 1;

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "./PurchaseItem.css";
 import {
   fetchItem,
-  fetchItemReturnValue,
   getPresignedUrl,
   listPurchaseItems,
   listPurchaseItemsReturnValue,

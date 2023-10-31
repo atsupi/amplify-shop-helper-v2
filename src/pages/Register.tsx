@@ -69,10 +69,9 @@ function Register( props: Props ) {
       isInCart: 0,
     };
     try {
-      const res = await API.graphql(
+      await API.graphql(
         graphqlOperation(createPurchaseTable, { input: value })
       );
-//      console.log("registerItem:", res);
     } catch (event) {
       console.log(event);
     }
