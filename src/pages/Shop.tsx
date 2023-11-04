@@ -5,6 +5,9 @@ import { PurchaseData } from "../types";
 import "./Shop.css";
 import { Link } from "react-router-dom";
 import { listItems, listItemsReturnValue } from "../Utils";
+import { onCreatePurchaseTable } from "../graphql/subscriptions";
+import Observable from "zen-observable-ts";
+import { API } from "aws-amplify";
 
 function Shop() {
   const [itemList, setItemList] = useState(Array<PurchaseData>);
@@ -20,6 +23,20 @@ function Shop() {
         }
       });
     });
+    let sub: Observable<object>;
+    try {
+      sub = API.graphql<Observable<object>>({ query: onCreatePurchaseTable });
+      console.log("Register:useEffect", sub);
+      if ("subscribe" in sub) {
+        console.log("Register:useEffect invoking subscribe()");
+        sub.subscribe({
+          next: (event) => console.log(event.value.data.onCreatePurchaseTable),
+          error: (error) => console.log(error),
+        });
+      }
+    } catch (event) {
+      console.log(event);
+    }
   }, []);
 
   const OpenCart = () => {
