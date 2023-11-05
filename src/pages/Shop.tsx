@@ -24,18 +24,22 @@ function Shop() {
       });
     });
     let sub: Observable<object>;
+    let subscriptions: any;
     try {
       sub = API.graphql({ query: onCreatePurchaseTable }) as Observable<object>;
-      console.log("Register:useEffect", sub);
       if ("subscribe" in sub) {
-        console.log("Register:useEffect invoking subscribe()");
-        sub.subscribe({
+        subscriptions = sub.subscribe({
           next: (event: {value: {data: any}}) => console.log(event.value.data.onCreatePurchaseTable),
           error: (error) => console.log(error),
         });
       }
     } catch (event) {
       console.log(event);
+    }
+    return () => {
+      if ('unsubscribe' in subscriptions) {
+        subscriptions.unsubscribe();
+      }
     }
   }, []);
 
