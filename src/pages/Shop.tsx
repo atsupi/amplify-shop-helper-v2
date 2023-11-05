@@ -25,12 +25,12 @@ function Shop() {
     });
     let sub: Observable<object>;
     try {
-      sub = API.graphql<Observable<object>>({ query: onCreatePurchaseTable });
+      sub = API.graphql({ query: onCreatePurchaseTable }) as Observable<object>;
       console.log("Register:useEffect", sub);
       if ("subscribe" in sub) {
         console.log("Register:useEffect invoking subscribe()");
         sub.subscribe({
-          next: (event) => console.log(event.value.data.onCreatePurchaseTable),
+          next: (event: {value: {data: any}}) => console.log(event.value.data.onCreatePurchaseTable),
           error: (error) => console.log(error),
         });
       }
