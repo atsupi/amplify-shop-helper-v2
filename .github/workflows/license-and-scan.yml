@@ -1,0 +1,50 @@
+name: license-and-vendoring-scan
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+
+      - name: License summary
+        run: npx license-checker --production --summary || true
+
+      - name: License JSON
+        run: npx license-checker --production --json > license-report.json || echo '{}' > license-report.json
+
+      - name: Find big files
+        run: git ls-files | xargs -n1 du -sh 2>/dev/null | sort -h | tail -n 40 > big-files.txt || true
+
+      - name: Find possibly vendored files
+        run: git ls-files | rg -n "node_modules|vendor|dist|build|\.min\.js|\.map$" --hidden --no-ignore-vcs > possibly-vendored-files.txt || true
+        shell: bash
+
+      - name: Search license headers
+        run: rg -n "MIT License|Licensed under|Copyright|All rights reserved" --hidden --no-ignore-vcs > license-headers-found.txt || true
+        shell: bash
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: license-scan-artifacts
+          path: |
+            license-report.json
+            big-files.txt
+            possibly-vendored-files.txt
+            license-headers-found.txt
