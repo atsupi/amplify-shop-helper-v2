@@ -28,12 +28,12 @@ function App() {
                     <Route index path="/" element={<Home />} />
                     <Route
                       path="/register"
-                      element={<Register username={user?.username} />}
+                      element={<Register />}
                     />
                     <Route path="/shop" element={<Shop />} />
                     <Route
                       path="/cart"
-                      element={<Cart username={user?.username} />}
+                      element={<Cart />}
                     />
                     <Route path="/purchase" element={<PurchaseList />} />
                     <Route path="/detail" element={null}>
