@@ -1,4 +1,5 @@
 import "./Register.css";
+import { useUser } from "../hooks/useUser";
 import { Storage } from "aws-amplify";
 import { useState } from "react";
 import { Button } from "@aws-amplify/ui-react";
@@ -13,7 +14,8 @@ type Props = {
   username: string | undefined
 }
 
-function Register( props: Props ) {
+function Register() {
+  const { username } = useUser();
   const [presignedUrl, setPresignedUrl] = useState("");
   const [dataName, setDataName] = useState("No image");
   const [isUrlSet, setIsUrlSet] = useState(false);
