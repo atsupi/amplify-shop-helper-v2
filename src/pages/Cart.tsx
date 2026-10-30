@@ -1,4 +1,5 @@
 import "./Cart.css";
+import { useUser } from "../hooks/useUser";
 import { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createPurchaseTable } from "../graphql/mutations";
@@ -12,12 +13,9 @@ import {
 import { PurchaseData, UpdateItemValue } from "../types";
 import { updateItemStatus } from "../Utils";
 
-type Props = {
-  username: string | undefined;
-};
-
-function Cart(props: Props) {
+function Cart() {
   const [itemList, setItemList] = useState(Array<PurchaseData>);
+  const { username, isAuthenticated, signOut } = useUser();
 
   useEffect(() => {
     let index = 0;
@@ -34,7 +32,7 @@ function Cart(props: Props) {
             type: item.type,
             imagefile: item.imagefile,
             price: item.price,
-            username: props.username,
+            username: username,
             description: item.description,
             isInCart: item.isInCart,
             isPurchased: 0,
@@ -53,7 +51,7 @@ function Cart(props: Props) {
       PK: "purchase#" + purId,
       SK: "#meta#" + purId,
       type: "purchase",
-      username: props.username,
+      username: username,
     };
     try {
       const res = await API.graphql(
@@ -70,7 +68,7 @@ function Cart(props: Props) {
         PK: "purchase#" + purId,
         SK: item.PK,
         type: "pitem",
-        username: props.username,
+        username: username,
         isPurchased: 0,
         price: item.price
       };
