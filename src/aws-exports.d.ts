@@ -1,1 +1,1 @@
-declare module "aws-exports";
+
