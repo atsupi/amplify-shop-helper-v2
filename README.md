@@ -51,6 +51,14 @@ amplify/
 - Node.js と npm
 - 利用可能な AWS Amplify バックエンド（Cognito、AppSync、S3）
 
+### バックエンドの初期化
+
+```
+npm install -g @aws-amplify/cli
+amplify init
+amplify push
+```
+
 ### インストールと起動
 
 ```bash
